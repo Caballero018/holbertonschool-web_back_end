@@ -10,6 +10,7 @@ import timeit
 
 
 async def wait_random(max_delay: int = 10) -> float:
+    """ Asynchronous coroutine """
     random_number = random.randint(0, max_delay)
     time_start = timeit.default_timer()
     seconds = await asyncio.sleep(random_number)
