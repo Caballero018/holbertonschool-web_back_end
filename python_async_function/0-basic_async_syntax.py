@@ -15,5 +15,4 @@ async def wait_random(max_delay: int = 10) -> float:
     seconds = await asyncio.sleep(random_number)
     time_end = timeit.default_timer()
 
-
-    return (time_start - time_end) * -1
+    return (time_start - time_end - 1) * - 1
