@@ -6,12 +6,14 @@ default value of 10) named wait_random that waits for a random delay between
 """
 import random
 import asyncio
-import time
+import timeit
 
 
 async def wait_random(max_delay: int = 10) -> float:
     random_number = random.randint(0, max_delay)
-    await asyncio.sleep(random_number)
-    seconds = time.time()
+    time_start = timeit.default_timer()
+    seconds = await asyncio.sleep(random_number)
+    time_end = timeit.default_timer()
 
-    return seconds
+
+    return (time_start - time_end) * -1
