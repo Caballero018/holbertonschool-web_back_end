@@ -1,4 +1,4 @@
-# Python - Variable Annotations
+# Project name: Python - Variable Annotations
 
 ![imagen](readme_images/0.png)
 
