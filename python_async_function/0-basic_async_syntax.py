@@ -11,9 +11,16 @@ import timeit
 
 async def wait_random(max_delay: int = 10) -> float:
     """ Asynchronous coroutine """
+    # Random number
     random_number = random.randint(0, max_delay)
-    time_start = timeit.default_timer()
-    await asyncio.sleep(random_number)
-    time_end = timeit.default_timer()
 
-    return (time_start - time_end - 1) * - 1
+    # Start time
+    start_time = timeit.default_timer()
+
+    # Wait time
+    await asyncio.sleep(random_number)
+
+    # End time
+    end_time = timeit.default_timer()
+
+    return (start_time - end_time - 1) * -1
