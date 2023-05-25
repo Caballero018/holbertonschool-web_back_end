@@ -9,8 +9,10 @@ import typing
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: int): # -> typing.List[float]:
+async def wait_n(n: int, max_delay: int) -> typing.List[float]:
+    """ Async routine """
     all_delays = []
-
-    a = await asyncio.gather(wait_random)    
-    return a
+    gather = await asyncio.gather(wait_random(max_delay))
+    for _ in range(n):
+        all_delays.append(gather[0])
+    return all_delays
