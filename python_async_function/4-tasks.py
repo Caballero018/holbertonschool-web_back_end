@@ -6,14 +6,14 @@ max_delay.
 """
 import asyncio
 import typing
-wait_random = __import__('0-basic_async_syntax').wait_random
 task_wait_random = __import__('3-tasks').task_wait_random
 
 
-async def wait_n(n: int, max_delay: int) -> typing.List[float]:
+async def task_wait_n(n: int, max_delay: int) -> typing.List[float]:
     """ Async routine """
     all_delays = []
-    gather = task_wait_random(await asyncio.gather(wait_random(max_delay)))
+    gather = await asyncio.gather(task_wait_random(max_delay))
+
     for _ in range(n):
         all_delays.append(gather[0])
     return all_delays
