@@ -1,29 +1,35 @@
 #!/usr/bin/env python3
-'''MRU cache implementation'''
-
+"""
+Module that have a class MRUCache that inherits from BaseCaching and is
+caching system.
+"""
 from base_caching import BaseCaching
-from collections import OrderedDict
+import collections
 
 
 class MRUCache(BaseCaching):
-    '''MRU Caching class'''
+    """
+    Class MRUCache that inherits from BaseCaching and is caching system.
+    """
     def __init__(self):
-        '''Class init method'''
         super().__init__()
-        self.cache_data = OrderedDict()
+        self.cache_data = collections.OrderedDict()
 
     def put(self, key, item):
-        '''Class put method: Puts an item on the dict'''
-        max_items = super().MAX_ITEMS - 1
-        cache_len = len(self.cache_data)
-        if cache_len > max_items and key not in self.cache_data.keys():
-            print('DISCARD: {}'.format(self.cache_data.popitem()[0]))
-        if key and item:
+        """ Add an item in the cache
+        """
+        if key is not None and item is not None:
             self.cache_data[key] = item
             self.cache_data.move_to_end(key)
+        if len(self.cache_data.values()) > BaseCaching.MAX_ITEMS:
+            mru_key = [k for k in self.cache_data.keys()]
+            self.cache_data.pop(mru_key[-2])
+            print("DISCARD: {}".format(mru_key[-2]))
 
     def get(self, key):
-        '''Class get method: Gets an item from the dict'''
-        if key and key in self.cache_data.keys():
+        """ Get an item by key
+        """
+        if key is not None and key in self.cache_data:
             self.cache_data.move_to_end(key)
-            return (self.cache_data[key])
+            return self.cache_data[key]
+        return None
