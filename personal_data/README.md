@@ -2,8 +2,6 @@
 
 ## **Requirements**
 
-![label](https://www.google.com/url?sa%3Di%26url%3Dhttps%3A%2F%2Fwww.istockphoto.com%2Fphoto%2Fsocial-network-concept-gm1286694373-383123518%26psig%3DAOvVaw20HzvtawfwSCSaUUkcIZML%26ust%3D1685643075581000%26source%3Dimages%26cd%3Dvfe%26ved%3D0CBEQjRxqFwoTCOCh2vyToP8CFQAAAAAdAAAAABAO)
-
 * All your files will be interpreted/compiled on Ubuntu 18.04 LTS using `python3` (version 3.7)
 * All your files should end with a new line
 * The first line of all your files should be exactly `#!/usr/bin/env python3`
