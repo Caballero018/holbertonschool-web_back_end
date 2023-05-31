@@ -1,27 +1,35 @@
 #!/usr/bin/env python3
-'''LRU cache implementation'''
-
+"""
+Module that have a class LRUCache that inherits from BaseCaching and is
+caching system.
+"""
 from base_caching import BaseCaching
-from collections import OrderedDict
+import collections
 
 
 class LRUCache(BaseCaching):
-    '''LRU Caching class'''
+    """
+    Class LRUCache that inherits from BaseCaching and is caching system.
+    """
     def __init__(self):
-        '''Class init method'''
         super().__init__()
-        self.cache_data = OrderedDict()
+        self.cache_data = collections.OrderedDict()
 
     def put(self, key, item):
-        '''Class put method: Puts an item on the dict'''
+        """ Add an item in the cache
+        """
         if key is not None and item is not None:
             self.cache_data[key] = item
-            self.cache_data.move_to_end(key)
-        if len(self.cache_data) > super().MAX_ITEMS:
-            print('DISCARD: {}'.format(self.cache_data.popitem(last=False)[0]))
+            lru_key = self.cache_data.move_to_end(key)
+        if len(self.cache_data.values()) > BaseCaching.MAX_ITEMS:
+            lru_key = next(iter(self.cache_data.keys()))
+            self.cache_data.pop(lru_key)
+            print("DISCARD: {}".format(lru_key))
 
     def get(self, key):
-        '''Class get method: Gets an item from the dict'''
-        if key and key in self.cache_data.keys():
+        """ Get an item by key
+        """
+        if key is not None and key in self.cache_data:
             self.cache_data.move_to_end(key)
-            return (self.cache_data[key])
+            return self.cache_data[key]
+        return None
