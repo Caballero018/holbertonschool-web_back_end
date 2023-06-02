@@ -4,10 +4,8 @@ Module that have a function called filter_datum that returns the log message
 obfuscated
 """
 from typing import List
-import datetime
 import re
 import logging
-import time
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
@@ -38,7 +36,6 @@ class RedactingFormatter(logging.Formatter):
         """
         Method to filter values in incoming log records using filter_datum
         """
-        t = datetime.datetime.now()
         message = filter_datum(self.fields, RedactingFormatter.REDACTION,
                                record.msg, RedactingFormatter.SEPARATOR)
         message = logging.LogRecord(record.name, record.levelname, None, None,
