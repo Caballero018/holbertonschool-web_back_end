@@ -30,11 +30,17 @@ class RedactingFormatter(logging.Formatter):
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
+        """ Constructor """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """
+        Method to filter values in incoming log records using filter_datum
+        """
         t = datetime.datetime.now()
-        message = filter_datum(self.fields, RedactingFormatter.REDACTION, record.msg, RedactingFormatter.SEPARATOR)
-        message = RedactingFormatter.FORMAT % {'name': record.name, 'levelname': record.levelname, 'asctime': '2019-11-19 18:24:25,105', 'message': message}
-        return message
+        message = filter_datum(self.fields, RedactingFormatter.REDACTION,
+                               record.msg, RedactingFormatter.SEPARATOR)
+        message = logging.LogRecord(record.name, record.levelname, None, None,
+                                    message, None, None)
+        return super().format(message)
