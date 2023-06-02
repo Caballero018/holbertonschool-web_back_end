@@ -37,11 +37,8 @@ class RedactingFormatter(logging.Formatter):
         """
         Method to filter values in incoming log records using filter_datum
         """
-        if not record and self.fields is not None:
-            print("[Anything]", file=sys.stderr)
-            return
         message = filter_datum(self.fields, RedactingFormatter.REDACTION,
                                record.msg, RedactingFormatter.SEPARATOR)
         message = logging.LogRecord(record.name, record.levelname, None, None,
                                     message, None, None)
-        return super().format(message)
+        return super(RedactingFormatter, self).format(message)
