@@ -48,6 +48,11 @@ class RedactingFormatter(logging.Formatter):
 
 
 def get_logger() -> logging.Logger:
+    """
+    Logger should be named "user_data" and only log up to logging.INFO level.
+    It should not propagate messages to other loggers. It should have a
+    StreamHandler with RedactingFormatter as formatter.
+    """
     log = logging.getLogger("user_data")
     log.setLevel(logging.INFO)
     log.propagate = False
