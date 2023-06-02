@@ -38,7 +38,7 @@ class RedactingFormatter(logging.Formatter):
         Method to filter values in incoming log records using filter_datum
         """
         message = filter_datum(self.fields, RedactingFormatter.REDACTION,
-                               record.msg, RedactingFormatter.SEPARATOR)
+                               record.getMessage(), RedactingFormatter.SEPARATOR)
         message = logging.LogRecord(record.name, record.levelname, None, None,
                                     message, None, None)
         return super(RedactingFormatter, self).format(message)
