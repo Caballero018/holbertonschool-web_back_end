@@ -58,7 +58,7 @@ def get_logger() -> logging.Logger:
     log.setLevel(logging.INFO)
     log.propagate = False
     handler = logging.StreamHandler()
-    handler.setFormatter(RedactingFormatter(List(PII_FIELDS)))
+    handler.setFormatter(RedactingFormatter(PII_FIELDS))
     log.addHandler(handler)
 
     return log
@@ -74,15 +74,32 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     """
     username = os.getenv('PERSONAL_DATA_DB_USERNAME') or 'root'
     password = os.getenv('PERSONAL_DATA_DB_PASSWORD') or ''
-    host = os.getenv('PERSONAL_DATA_DB_HOST') or 'localhost'
+    _host = os.getenv('PERSONAL_DATA_DB_HOST') or 'localhost'
     db_name = os.getenv('PERSONAL_DATA_DB_NAME')
 
     """
     Connection to DataBase
     """
-    conection = mysql.connector.connection.MySQLConnection(user=username,
-                                                           password=password,
-                                                           host=host,
-                                                           database=db_name)
+    conection = mysql.connector.connection.MySQLConnection(
+        user=username, password=password, host=_host, database=db_name)
 
     return conection
+
+
+def main():
+    """ Main """
+    db_connection = get_db()
+    log = get_logger()
+    cursor = db_connection.cursor()
+    cursor.execute("SELECT * from users")
+
+    rows = cursor.fetchall()
+    column_names = [column[0] for column in cursor.description]
+    for row in rows:
+        user_info = '; '.join(f"{column_names[i]}={value}" for i, value in
+                              enumerate(row))
+        log.info(user_info)
+
+
+if __name__ == '__main__':
+    main()
