@@ -30,4 +30,4 @@ def unauthor():
     """
     This endpoint must raise a 401 error
     """
-    abort(401)
+    raise abort(401)
