@@ -19,17 +19,17 @@ class Auth():
     """ Doc """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ Doc """
-        if not path:
+        if not path or not excluded_paths or len(excluded_paths) == 0:
             return True
-        if not excluded_paths or excluded_paths == []:
-            return True
-        excluded_paths = [remove_slash(paths) for paths in excluded_paths]
-        if remove_slash(path) not in excluded_paths:
+        excluded_path = [remove_slash(paths) for paths in excluded_paths]
+        if remove_slash(path) not in excluded_path:
             return True
         return False
 
     def authorization_header(self, request=None) -> str:
         """ Doc """
+        if request and 'Authorization' in request.headers.keys():
+            return request.headers['Authorization']
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
