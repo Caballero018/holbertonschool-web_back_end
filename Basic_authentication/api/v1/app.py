@@ -14,9 +14,10 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 auth_type = os.getenv('AUTH_TYPE')
-if auth:
+if auth_type == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
@@ -44,12 +45,12 @@ def before_request():
     Before_request
     """
     paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
-    if not auth or auth.require_auth(request.path, paths):
+    if not auth or not auth.require_auth(request.path, paths):
         return
     if auth.authorization_header(request) is None:
         abort(401)
     if auth.current_user(request) is None:
-        abort(403)        
+        abort(403)
 
 
 app.before_request(before_request)
