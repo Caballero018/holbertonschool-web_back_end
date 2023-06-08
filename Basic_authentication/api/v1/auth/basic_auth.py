@@ -49,4 +49,4 @@ class BasicAuth(Auth):
                 is not str or ':' in decoded_base64_authorization_header:
             return None, None
         base_split = decoded_base64_authorization_header.split(':', 1)
-        return base_split[0], base_split[1]
+        return (base_split[0], base_split[1])
