@@ -39,14 +39,14 @@ class BasicAuth(Auth):
 
     def extract_user_credentials(
             self, decoded_base64_authorization_header: str
-            ) -> typing.Tuple(str, str):
+            ) -> typing.Union[str, str]:
         """
         Method that returns the user email and password from the Base64
         decoded value.
         """
         if not decoded_base64_authorization_header or \
                 type(decoded_base64_authorization_header)\
-                is not str or ':' in decoded_base64_authorization_header:
+                is not str or ':' not in decoded_base64_authorization_header:
             return None, None
         base_split = decoded_base64_authorization_header.split(':', 1)
-        return (base_split[0], base_split[1])
+        return base_split[0], base_split[1]
