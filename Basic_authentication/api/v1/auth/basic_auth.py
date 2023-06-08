@@ -19,15 +19,16 @@ class BasicAuth(Auth):
                 or "Basic " not in authorization_header[:6]:
             return None
         return authorization_header[6:]
-    
-    def decode_base64_authorization_header(self, base64_authorization_header: str)\
-            -> str:
+
+    def decode_base64_authorization_header(
+            self, base64_authorization_header: str) -> str:
         """
         Method that returns the decoded value of a Base64 string
         'base64_authorization_header'
         """
         try:
-            if not base64_authorization_header or type(base64_authorization_header) is not str:
+            if not base64_authorization_header or\
+                    type(base64_authorization_header) is not str:
                 return None
             base = base64_authorization_header.encode()
             base = base64.b64decode(base)
