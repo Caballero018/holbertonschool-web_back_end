@@ -55,5 +55,8 @@ class BasicAuth(Auth):
         """
         Method that returns the User instance based on his email and password.
         """
+        from models.user import User
+
+
         if not user_email or type(user_email) is not str or not user_pwd or type(user_pwd) is not str:
             pass
