@@ -50,14 +50,3 @@ class BasicAuth(Auth):
             return None, None
         base_split = decoded_base64_authorization_header.split(':', 1)
         return base_split[0], base_split[1]
-
-    def user_object_from_credentials(self, user_email: str, user_pwd: str)\
-            -> TypeVar('User'):
-        """
-        Method that returns the User instance based on his email and password.
-        """
-        from models.user import User
-
-        if not user_email or type(user_email) is not str or not user_pwd or\
-                type(user_pwd) is not str:
-            return
