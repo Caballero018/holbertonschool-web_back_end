@@ -77,7 +77,7 @@ class BasicAuth(Auth):
         Method that overloads Auth and retrieves the User instance for
         a request.
         """
-        user = self.authorization_header(request)
+        user = super().authorization_header(request)
         user = self.extract_base64_authorization_header(user)
         user = self.decode_base64_authorization_header(user)
         user, pwd = self.extract_user_credentials(user)
