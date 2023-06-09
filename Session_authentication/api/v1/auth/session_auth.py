@@ -6,4 +6,5 @@ from ..auth.auth import Auth
 
 
 class SessionAuth(Auth):
+    """Doc"""
     pass
