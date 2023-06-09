@@ -63,6 +63,6 @@ class BasicAuth(Auth):
         user_lists = User.search({'email': user_email})
         if not user_email or type(user_email) is not str or not user_pwd or\
                 type(user_pwd) is not str or len(user_lists) == 0 or\
-                user_lists[0].is_valid_password(user_pwd):
+                not user_lists[0].is_valid_password(user_pwd):
             return None
         return user_lists[0]
