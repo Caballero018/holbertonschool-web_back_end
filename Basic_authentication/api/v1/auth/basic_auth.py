@@ -11,6 +11,7 @@ from ..views.users import User
 
 class BasicAuth(Auth):
     """ Class BasicAuth that inherits from Auth """
+
     def extract_base64_authorization_header(self, authorization_header: str)\
             -> str:
         """
