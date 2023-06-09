@@ -6,6 +6,7 @@ from api.v1.auth.auth import Auth
 from codecs import decode
 import base64
 from typing import *
+from ..views.users import User
 
 
 class BasicAuth(Auth):
@@ -50,3 +51,15 @@ class BasicAuth(Auth):
             return None, None
         base_split = decoded_base64_authorization_header.split(':', 1)
         return base_split[0], base_split[1]
+
+    def user_object_from_credentials(self, user_email: str, user_pwd: str)\
+            -> TypeVar('User'):
+        """
+        Method that returns the User instance based on his email and password.
+        """
+        user_lists = User.search({'email': user_email})
+        if not user_email or type(user_email) is not str or not user_pwd or\
+                type(user_pwd) is not str or len(user_lists) == 0 or\
+                user_lists[0].is_valid_password(user_pwd):
+            return None
+        return user_lists[0]
