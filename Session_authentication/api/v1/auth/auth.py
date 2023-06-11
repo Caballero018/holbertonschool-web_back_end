@@ -4,6 +4,7 @@ Doc
 """
 from flask import request
 from typing import List, TypeVar
+import os
 
 
 def remove_slash(string: str) -> str:
@@ -35,3 +36,13 @@ class Auth():
     def current_user(self, request=None) -> TypeVar('User'):
         """ Doc """
         return None
+
+    def session_cookie(self, request=None):
+        """
+        Method that returns a cookie value from a request:
+        """
+        if not request:
+            return None
+        cookie_key = os.getenv('SESSION_NAME')
+
+        return request.cookies.get(cookie_key)
