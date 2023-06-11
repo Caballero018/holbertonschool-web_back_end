@@ -3,6 +3,7 @@
 Class SessionAuth that inherits from Auth.
 """
 from api.v1.auth.auth import Auth
+from api.v1.views.users import User
 import uuid
 
 
@@ -32,3 +33,15 @@ class SessionAuth(Auth):
             return None
         user_value = SessionAuth.user_id_by_session_id.get(session_id)
         return user_value
+
+    def current_user(self, request=None):
+        """
+        Method that returns a User instance based on a cookie value
+        """
+        session_id = super().session_cookie(request)
+        if session_id is None:
+            return None
+
+        user_id = self.user_id_for_session_id(session_id)
+
+        return User.get(user_id)
