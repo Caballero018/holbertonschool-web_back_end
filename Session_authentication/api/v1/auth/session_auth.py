@@ -53,16 +53,16 @@ class SessionAuth(Auth):
         if not request:
             return False
 
-        session_id = super().session_cookie(request)
+        session_id: str = super().session_cookie(request)
         if session_id is None:
             return False
 
-        user_id = self.user_id_for_session_id(session_id)
-        if not user_id or user_id is None:
+        user_id: str = self.user_id_for_session_id(session_id)
+        if user_id is None:
             return False
 
         try:
-            del self.user_id_by_session_id[user_id]
+            del self.user_id_by_session_id[session_id]
         except Exception:
             pass
         return True
