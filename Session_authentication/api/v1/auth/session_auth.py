@@ -53,13 +53,14 @@ class SessionAuth(Auth):
         if not request:
             return False
 
-        session_id = super().session_cookie(request)
-        if not session_id or session_id is None:
-            return False
+        if request.status_code == 200:
+            session_id = super().session_cookie(request)
+            if not session_id:
+                return False
 
-        user_id = self.user_id_for_session_id(session_id)
-        if not user_id:
-            return False
+            user_id = self.user_id_for_session_id(session_id)
+            if not user_id:
+                return False
 
-        del self.user_id_by_session_id[user_id]
-        return True
+            del self.user_id_by_session_id[user_id]
+            return True
