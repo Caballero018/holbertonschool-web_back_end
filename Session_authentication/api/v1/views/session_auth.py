@@ -34,3 +34,14 @@ def login():
     response.set_cookie(session_id, user_id)
 
     return response
+
+
+@app_views.route('/auth_session/login', methods=['DELETE'],
+                 strict_slashes=False)
+def login_delate():
+    from api.v1.app import auth
+
+    if not auth.destroy_session(request):
+        abort(404)
+
+    return jsonify({}), 200
