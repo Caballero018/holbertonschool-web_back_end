@@ -25,7 +25,7 @@ def login():
     except Exception:
         return jsonify({"error": "no user found for this email"}), 400
 
-    if len(user_instance) == 0:
+    if len(user_instance) == 0 or not user_instance:
         return jsonify({"error": "no user found for this email"}), 400
     if not user_instance[0].is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
