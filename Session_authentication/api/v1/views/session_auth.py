@@ -36,9 +36,9 @@ def login():
     return response
 
 
-@app_views.route('/auth_session/login', methods=['DELETE'],
+@app_views.route('/api/v1/auth_session/logout', methods=['DELETE'],
                  strict_slashes=False)
-def login_delate():
+def logout():
     """
     Flask view that handles all routes for the Session authentication.
     """
