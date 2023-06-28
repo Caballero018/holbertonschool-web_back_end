@@ -28,3 +28,11 @@ class Cache():
             return None
         value = self._redis.get(key)
         return value
+
+    def get_str(self, value):
+        if type(value) == str:
+            return str(value)
+
+    def get_int(self, value):
+        if type(value) == int:
+            return int(value)
