@@ -22,3 +22,9 @@ class Cache():
         random_key = str(uuid.uuid4())
         self._redis.set(random_key, data)
         return random_key
+    
+    def get(self, key, fn):
+        if self._redis.get(key) == None:
+            return None
+        value = self._redis.get(key)
+        return value
