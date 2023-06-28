@@ -4,7 +4,7 @@ Modulo that has a module a class called Cache
 """
 import redis
 import uuid
-from typing import Union
+from typing import Union, Optional
 
 
 class Cache():
@@ -22,17 +22,34 @@ class Cache():
         random_key = str(uuid.uuid4())
         self._redis.set(random_key, data)
         return random_key
-    
-    def get(self, key, fn):
-        if self._redis.get(key) == None:
-            return None
+
+    def get(self, key: str, fn: Optional[callable] = None):
+        """Method get
+
+        Keyword arguments:
+        key -- string argument
+        fn  -- optional Callable argument
+        Return: return_description
+        """
         value = self._redis.get(key)
+        if fn:
+            return fn(value)
         return value
 
-    def get_str(self, value):
-        if type(value) == str:
-            return str(value)
+    def get_str(self, key: str) -> str:
+        """Method get_str
 
-    def get_int(self, value):
-        if type(value) == int:
-            return int(value)
+        Keyword arguments:
+        key -- string argument
+        Return: conversion of data to str
+        """
+        return self.get(key, str)
+
+    def get_int(self, key: int) -> int:
+        """Method get_str
+
+        Keyword arguments:
+        key -- string argument
+        Return: conversion of data to int
+        """
+        return self.get(key, int)
