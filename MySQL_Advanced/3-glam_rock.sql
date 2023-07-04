@@ -1,2 +1,2 @@
 -- Script that lists all bands with Glam rock as their main style, ranked by their longevity
-SELECT band_name, SUM(formed) - SUM(split) AS lifespan FROM metal_bands WHERE split IS NOT NULL OR formed IS NOT NULL GROUP BY band_name;
+SELECT band_name, SUM(formed) - SUM(split) AS lifespan FROM metal_bands WHERE split  IS NOT NULL GROUP BY band_name;
