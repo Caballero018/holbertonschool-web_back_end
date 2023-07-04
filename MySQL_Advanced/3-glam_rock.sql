@@ -1,2 +1,2 @@
 -- Script that lists all bands with Glam rock as their main style, ranked by their longevity
-SELECT DATATYPE FROM metal_bands;
+SELECT band_name, split.data_type FROM metal_bands;
