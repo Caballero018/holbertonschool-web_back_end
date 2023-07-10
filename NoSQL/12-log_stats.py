@@ -15,4 +15,3 @@ if __name__ == '__main__':
     print(f'\tmethod PATCH: {c.count_documents({"method": "PATCH"})}')
     print(f'\tmethod DELETE: {c.count_documents({"method": "DELETE"})}')
     print(f'{c.count_documents({"path": "/status"})} status check')
-    
